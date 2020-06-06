@@ -2,6 +2,10 @@
 
 A weather forecast Flutter project. Based on the API available here: https://openweathermap.org/api
 
+## Sources:
+Icons: https://www.iconfinder.com/iconsets/weather-610
+
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
