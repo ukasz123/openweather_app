@@ -2,12 +2,12 @@ import 'dart:math';
 
 import 'package:flutter/widgets.dart';
 
-const coldColor = const Color(0xff6699ff);
-const mildColor = const Color(0xff99ff00);
-const warmColor = const Color(0xffff5533);
+const coldColor = const Color(0xff0099ff);
+const mildColor = const Color(0xff66aa33);
+const warmColor = const Color(0xffff5500);
 
-const minTemp = -25;
-const maxTemp = 45;
+const minTemp = -15;
+const maxTemp = 40;
 
 final Animatable<Color> colorFunc = TweenSequence<Color>([
   TweenSequenceItem(
