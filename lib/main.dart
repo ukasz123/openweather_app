@@ -14,6 +14,8 @@ class WeatherApp extends StatelessWidget {
       title: 'Weather Forecast',
       theme: ThemeData(
         primaryColor: Colors.green.shade700,
+        accentColor: Colors.amberAccent.shade400,
+        indicatorColor: Colors.green.shade500 ,
         // This makes the visual density adapt to the platform that you run
         // the app on. For desktop platforms, the controls will be smaller and
         // closer together (more dense) than on mobile platforms.
