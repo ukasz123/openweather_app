@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:openweather_app/model/weather.dart';
 import 'package:openweather_app/services/http_exception.dart';
-import 'package:openweather_app/services/openweather/weather.dart';
+import 'package:openweather_app/services/openweather/weather.dart'
+    as api_weather;
 
 abstract class OpenWeatherClient {
   Future<Weather> getCurrentWeather(String city);
@@ -39,10 +41,10 @@ class _OpenWeatherClient implements OpenWeatherClient {
       int dateUnixUTC = daily['dt'];
       var dailyDate =
           DateTime.fromMillisecondsSinceEpoch(dateUnixUTC * 1000, isUtc: true);
-      var dailyWeather = Weather.fromForecastResponse(city, daily);
+      var dailyWeather = api_weather.Weather.fromForecastResponse(city, daily);
       return MapEntry<DateTime, Weather>(dailyDate, dailyWeather);
     });
-    
+
     return Map.fromEntries(forecastEntries);
   }
 
@@ -51,7 +53,7 @@ class _OpenWeatherClient implements OpenWeatherClient {
     Uri requestUri = Uri.https(
         _authority, '$_apiPath/weather', {'q': city, 'units': 'metric'});
     var jsonResponse = await _readJson(client.get(requestUri));
-    return Weather.fromCurrentWeatherResponse(jsonResponse);
+    return api_weather.Weather.fromCurrentWeatherResponse(jsonResponse);
   }
 
   static final String _authority = 'api.openweathermap.org';

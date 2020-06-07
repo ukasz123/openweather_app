@@ -11,7 +11,7 @@ class WeatherIcons {
 
   static const String rain = '${_prefix}rainy$_suffix';
   static const String rainLight = '${_prefix}drizzle-rain$_suffix';
-  static const String rainHeavy = '${_prefix}heavy-rain$_suffix';
+  static const String rainHeavy = '${_prefix}heavy-rainy$_suffix';
 
   static const String cloudyThunderbolt =
       '${_prefix}cloudy-storm-thunderbolt$_suffix';

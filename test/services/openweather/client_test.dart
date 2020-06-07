@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:openweather_app/api_keys.dart';
+import 'package:openweather_app/model/weather.dart';
 import 'package:openweather_app/services/openweather/client.dart';
 import 'package:openweather_app/services/openweather/http.dart';
-import 'package:openweather_app/services/openweather/weather.dart';
 
 void main() {
   test(

@@ -1,22 +1,9 @@
-class City {
-  final String name;
-  final double lat;
-  final double long;
+import 'package:openweather_app/model/weather.dart' as model;
 
-  City(this.name, this.lat, this.long);
-}
-
-class Weather {
-  final double temperature;
-  final City city;
-  final WeatherCondition condition;
-  // In hPa
-  final double pressure;
-  // Percent
-  final double humidity;
-
-  Weather._(this.temperature, this.city, this.condition, this.pressure,
-      this.humidity);
+class Weather extends model.Weather {
+  Weather._(double temperature, model.City city,
+      model.WeatherCondition condition, double pressure, double humidity)
+      : super(temperature, city, condition, pressure, humidity);
 
   factory Weather.fromCurrentWeatherResponse(Map<String, dynamic> json) {
     Map<String, dynamic> mainData = json['main'];
@@ -29,19 +16,20 @@ class Weather {
     double long = coords['long'];
     String conditionIcon = ((json['weather'] as List<dynamic>).first
         as Map<String, dynamic>)['icon'];
-    WeatherCondition condition = _fromIconCode(conditionIcon);
-    return Weather._(
-        temperature, City(name, lat, long), condition, pressure, humidity);
+    model.WeatherCondition condition = _fromIconCode(conditionIcon);
+    return Weather._(temperature, model.City(name, lat, long), condition,
+        pressure, humidity);
   }
 
-  factory Weather.fromForecastResponse(City city, Map<String, dynamic> json) {
+  factory Weather.fromForecastResponse(
+      model.City city, Map<String, dynamic> json) {
     double temperature = (json['temp'] as Map<String, dynamic>)['day'];
 
     double pressure = (json['pressure'] as num).toDouble();
     double humidity = (json['humidity'] as num).toDouble();
     String conditionIcon = ((json['weather'] as List<dynamic>).first
         as Map<String, dynamic>)['icon'];
-    WeatherCondition condition = _fromIconCode(conditionIcon);
+    model.WeatherCondition condition = _fromIconCode(conditionIcon);
     return Weather._(temperature, city, condition, pressure, humidity);
   }
 
@@ -51,44 +39,28 @@ class Weather {
   }
 }
 
-WeatherCondition _fromIconCode(String conditionIcon) {
+model.WeatherCondition _fromIconCode(String conditionIcon) {
   String code = conditionIcon.substring(0, 2);
   switch (code) {
     case "01":
-      return WeatherCondition.sunny;
+      return model.WeatherCondition.sunny;
     case "02":
-      return WeatherCondition.sunnyCloud;
+      return model.WeatherCondition.sunnyCloud;
     case "03":
-      return WeatherCondition.cloudySun;
+      return model.WeatherCondition.cloudySun;
     case "04":
-      return WeatherCondition.cloudy;
+      return model.WeatherCondition.cloudy;
     case "09":
-      return WeatherCondition.rainHeavy;
+      return model.WeatherCondition.rainHeavy;
     case "10":
-      return WeatherCondition.rain;
+      return model.WeatherCondition.rain;
     case "11":
-      return WeatherCondition.storm;
+      return model.WeatherCondition.storm;
     case "13":
-      return WeatherCondition.snow;
+      return model.WeatherCondition.snow;
     case "50":
-      return WeatherCondition.fog;
+      return model.WeatherCondition.fog;
     default:
       return null;
   }
-}
-
-enum WeatherCondition {
-  sunny,
-  sunnyCloud,
-  cloudySun,
-  cloudy,
-  fog,
-  rain,
-  rainLight,
-  rainHeavy,
-  storm,
-
-  snow,
-  snowLight,
-  snowHeavy
 }
