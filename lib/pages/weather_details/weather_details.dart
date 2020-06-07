@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:openweather_app/model/weather.dart';
+import 'package:openweather_app/pages/weather_details/forecast.dart';
 import 'package:openweather_app/utils/temperature_color.dart';
 import 'package:openweather_app/widgets/temperature.dart';
 import 'package:openweather_app/widgets/temperature_theme.dart';
@@ -33,7 +34,7 @@ class CityWeatherPage extends StatelessWidget {
                         height: 260.0,
                         child: _CurrentWeather(currentWeather: currentWeather)),
                     Expanded(
-                      child: _ForecastList(city: currentWeather.city),
+                      child: Forecast(city: currentWeather.city),
                     ),
                   ],
                 )
@@ -42,40 +43,13 @@ class CityWeatherPage extends StatelessWidget {
                     Expanded(
                         child: _CurrentWeather(currentWeather: currentWeather)),
                     Expanded(
-                      child: _ForecastList(city: currentWeather.city),
+                      child: Forecast(city: currentWeather.city),
                     ),
                   ],
                 ),
         ),
       ),
     );
-  }
-}
-
-class _ForecastList extends StatelessWidget {
-  const _ForecastList({
-    Key key,
-    this.city,
-  }) : super(key: key);
-
-  final City city;
-
-  @override
-  Widget build(BuildContext context) {
-    var primaryColor = Theme.of(context).primaryColor;
-    return ListView(
-        children: ListTile.divideTiles(
-            color: primaryColor,
-            tiles: forecast.map(
-              (day) => ListTile(
-                trailing: Text(day),
-                title: TemperatureText(
-                  temperature: (_r.nextDouble() * 40) - 9.0,
-                  height: Theme.of(context).textTheme.subtitle1.fontSize,
-                ),
-                leading: Image.asset(_weathers[_r.nextInt(5)]),
-              ),
-            )).toList(growable: false));
   }
 }
 
@@ -158,23 +132,3 @@ class _CurrentWeather extends StatelessWidget {
     );
   }
 }
-
-Random _r = Random();
-
-List<String> forecast = [
-  "tomorrow",
-  "2.04",
-  "3.04",
-  "4.04",
-  "5.04",
-  "6.04",
-  "7.04",
-];
-
-const List<String> _weathers = const [
-  WeatherIcons.cloudSunny,
-  WeatherIcons.rain,
-  WeatherIcons.sunny,
-  WeatherIcons.snowHeavy,
-  WeatherIcons.rainLight,
-];

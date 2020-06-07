@@ -25,12 +25,15 @@ class _OpenWeatherClient implements OpenWeatherClient {
     Uri requestUri = Uri.https(
       _authority,
       '$_apiPath/onecall',
-      {
+      
+    ).replace(
+      query: {
         'lat': city.lat.toString(),
         'lon': city.long.toString(),
         'exclude': 'current,minutely,hourly',
         'units': 'metric'
-      },
+      }.entries.map((e) => '${e.key}=${e.value}')
+      .join('&')
     );
     var jsonResponse = await _readJson(client.get(requestUri));
     List<dynamic> forecast = jsonResponse['daily'];

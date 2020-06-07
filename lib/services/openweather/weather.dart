@@ -13,7 +13,7 @@ class Weather extends model.Weather {
     double humidity = (mainData['humidity'] as num).toDouble();
     Map<String, dynamic> coords = json['coord'];
     double lat = coords['lat'];
-    double long = coords['long'];
+    double long = coords['lon'];
     String conditionIcon = ((json['weather'] as List<dynamic>).first
         as Map<String, dynamic>)['icon'];
     model.WeatherCondition condition = _fromIconCode(conditionIcon);
