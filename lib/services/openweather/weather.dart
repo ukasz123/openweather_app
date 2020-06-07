@@ -5,19 +5,19 @@ class Weather extends model.Weather {
       model.WeatherCondition condition, double pressure, double humidity)
       : super(temperature, city, condition, pressure, humidity);
 
-  factory Weather.fromCurrentWeatherResponse(Map<String, dynamic> json) {
+  factory Weather.fromCurrentWeatherResponse(
+      String cityName, Map<String, dynamic> json) {
     Map<String, dynamic> mainData = json['main'];
     double temperature = (mainData['temp'] as num).toDouble();
     double pressure = (mainData['pressure'] as num).toDouble();
     double humidity = (mainData['humidity'] as num).toDouble();
-    String name = json['name'];
     Map<String, dynamic> coords = json['coord'];
     double lat = coords['lat'];
     double long = coords['long'];
     String conditionIcon = ((json['weather'] as List<dynamic>).first
         as Map<String, dynamic>)['icon'];
     model.WeatherCondition condition = _fromIconCode(conditionIcon);
-    return Weather._(temperature, model.City(name, lat, long), condition,
+    return Weather._(temperature, model.City(cityName, lat, long), condition,
         pressure, humidity);
   }
 

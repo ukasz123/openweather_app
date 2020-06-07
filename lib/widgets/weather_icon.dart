@@ -1,3 +1,5 @@
+import 'package:openweather_app/model/weather.dart';
+
 class WeatherIcons {
   WeatherIcons._();
   static const String _prefix = 'assets/icons/weather/';
@@ -20,4 +22,40 @@ class WeatherIcons {
   static const String snow = '${_prefix}cloudy-snow$_suffix';
   static const String snowHeavy = '${_prefix}heavy-snow$_suffix';
   static const String snowLight = '${_prefix}cloud-light-snow$_suffix';
+  
 }
+
+
+
+String weatherIconForCondition(WeatherCondition condition) {
+  switch (condition) {
+    case WeatherCondition.snow:
+      return WeatherIcons.snow;
+    case WeatherCondition.snowHeavy:
+      return WeatherIcons.snowHeavy;
+    case WeatherCondition.snowLight:
+      return WeatherIcons.snowLight;
+    case WeatherCondition.sunny:
+      return WeatherIcons.sunny;
+    case WeatherCondition.sunnyCloud:
+      return WeatherIcons.sunnyCloud;
+    case WeatherCondition.cloudySun:
+      return WeatherIcons.cloudSunny;
+    case WeatherCondition.cloudy:
+      return WeatherIcons.cloudy;
+    case WeatherCondition.fog:
+      return WeatherIcons.cloudyFog;
+    case WeatherCondition.rain:
+      return WeatherIcons.rain;
+    case WeatherCondition.rainHeavy:
+      return WeatherIcons.rainHeavy;
+    case WeatherCondition.rainLight:
+      return WeatherIcons.rainLight;
+    case WeatherCondition.storm:
+      return WeatherIcons.storm;
+    default:
+      return null;
+  }
+}
+
+

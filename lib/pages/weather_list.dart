@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:openweather_app/pages/weather_list/city_weather_card.dart';
 
@@ -21,10 +20,16 @@ class WeatherListPage extends StatelessWidget {
         title: Text('Weather today'),
         elevation: 0,
       ),
-      body: GridView(
-        gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
-        children: cities.map((city) => CityWeatherCard(city: city)).toList(),
+      body: LayoutBuilder(
+        builder: (context, constraints) {
+          var crossAxisCount = (constraints.maxWidth / 180).floor();
+          return GridView(
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: crossAxisCount),
+            children:
+                cities.map((city) => CityWeatherCard(city: city)).toList(),
+          );
+        },
       ),
     );
   }

@@ -1,8 +1,7 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:openweather_app/model/weather.dart';
-import 'package:openweather_app/pages/weather_details.dart';
+import 'package:openweather_app/pages/weather_details/weather_details.dart';
 import 'package:openweather_app/pages/weather_list/city_weather_bloc.dart';
 import 'package:openweather_app/utils/temperature_color.dart';
 import 'package:openweather_app/widgets/temperature.dart';
@@ -70,15 +69,12 @@ class _CityWeatherCardState extends State<CityWeatherCard> {
           } else {
             var weather = snapshot.data;
             cardColor = forTemperature(weather.temperature);
-            var type = _typeForConditions(weather.condition);
             conditions = _WeatherCardConditions(
-                weatherType: _typeForConditions(weather.condition),
+                weatherType: weatherIconForCondition(weather.condition),
                 temperature: weather.temperature);
             onTap = () => Navigator.of(context).push(MaterialPageRoute(
                 builder: (_) => CityWeatherPage(
-                      temperature: weather.temperature,
-                      city: this.widget.city,
-                      weatherType: type,
+                      currentWeather: weather,
                     )));
           }
           return InkWell(
@@ -147,37 +143,6 @@ class _WeatherLoading extends StatelessWidget {
         ),
       ],
     );
-  }
-}
-
-String _typeForConditions(WeatherCondition condition) {
-  switch (condition) {
-    case WeatherCondition.snow:
-      return WeatherIcons.snow;
-    case WeatherCondition.snowHeavy:
-      return WeatherIcons.snowHeavy;
-    case WeatherCondition.snowLight:
-      return WeatherIcons.snowLight;
-    case WeatherCondition.sunny:
-      return WeatherIcons.sunny;
-    case WeatherCondition.sunnyCloud:
-      return WeatherIcons.sunnyCloud;
-    case WeatherCondition.cloudySun:
-      return WeatherIcons.cloudSunny;
-    case WeatherCondition.cloudy:
-      return WeatherIcons.cloudy;
-    case WeatherCondition.fog:
-      return WeatherIcons.cloudyFog;
-    case WeatherCondition.rain:
-      return WeatherIcons.rain;
-    case WeatherCondition.rainHeavy:
-      return WeatherIcons.rainHeavy;
-    case WeatherCondition.rainLight:
-      return WeatherIcons.rainLight;
-    case WeatherCondition.storm:
-      return WeatherIcons.storm;
-    default:
-      return null;
   }
 }
 

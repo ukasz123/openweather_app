@@ -53,7 +53,7 @@ class _OpenWeatherClient implements OpenWeatherClient {
     Uri requestUri = Uri.https(
         _authority, '$_apiPath/weather', {'q': city, 'units': 'metric'});
     var jsonResponse = await _readJson(client.get(requestUri));
-    return api_weather.Weather.fromCurrentWeatherResponse(jsonResponse);
+    return api_weather.Weather.fromCurrentWeatherResponse(city, jsonResponse);
   }
 
   static final String _authority = 'api.openweathermap.org';
