@@ -49,7 +49,6 @@ class _OpenWeatherClient implements OpenWeatherClient {
       {bool forceRefresh: false}) async {
     Uri requestUri = Uri.https(
         _authority, '$_apiPath/weather', {'q': city, 'units': 'metric'});
-    print('Loading weather from remote');
     var jsonResponse = await _readJson(client.get(requestUri));
     return api_weather.Weather.fromCurrentWeatherResponse(city, jsonResponse);
   }
