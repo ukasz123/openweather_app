@@ -52,25 +52,15 @@ class AddCityCard extends StatelessWidget {
   }
 
   void _showCityNameDialog(BuildContext context) {
-    showModalBottomSheet<String>(
+    showDialog<String>(
       context: context,
       builder: (context) {
-        var theme = Theme.of(context);
-        return Container(constraints: const BoxConstraints.tightFor(height: 220),
-            child: Column(
-          children: [
-            Container(
-              color: theme.primaryColor,
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
+        return AlertDialog(
+          title:  Text(
                 'Add city',
-                style: theme.primaryTextTheme.headline6,
               ),
-              alignment: Alignment.center,
-            ),
-            Padding(padding: const EdgeInsets.all(16.0), child: _AddCityDialogForm(),),
-          ],
-        ));
+            content: _AddCityDialogForm(),
+         );
       },
     ).then((value) {
       this.onCityNameEntered(value);
@@ -84,10 +74,10 @@ class _AddCityDialogForm extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  __AddCityDialogFormState createState() => __AddCityDialogFormState();
+  _AddCityDialogFormState createState() => _AddCityDialogFormState();
 }
 
-class __AddCityDialogFormState extends State<_AddCityDialogForm> {
+class _AddCityDialogFormState extends State<_AddCityDialogForm> {
 
   TextEditingController _cityNameController;
   @override
@@ -105,6 +95,7 @@ class __AddCityDialogFormState extends State<_AddCityDialogForm> {
   @override
   Widget build(BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
 crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         TextField(
