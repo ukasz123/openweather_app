@@ -95,34 +95,36 @@ class _CurrentWeather extends StatelessWidget {
                           width: 80,
                           color: textTheme.bodyText1.color,
                         ),
-                        Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            TemperatureText(
-                              temperature: currentWeather.temperature,
-                              height: 32,
-                              textStyle: textTheme.bodyText1,
-                            ),
-                            SizedBox(height: 8),
-                            Text(
-                              'Pressure (hPa)',
-                              style: textTheme.subtitle2,
-                            ),
-                            Text(
-                              '${currentWeather.pressure.toStringAsFixed(1)}',
-                              style: textTheme.subtitle1,
-                            ),
-                            SizedBox(height: 4),
-                            Text(
-                              'Humidity (%)',
-                              style: textTheme.subtitle2,
-                            ),
-                            Text(
-                              '${currentWeather.humidity.toStringAsFixed(1)}',
-                              style: textTheme.subtitle1,
-                            ),
-                          ],
+                        Expanded(
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              TemperatureText(
+                                temperature: currentWeather.temperature,
+                                height: 32,
+                                textStyle: textTheme.bodyText1,
+                              ),
+                              SizedBox(height: 8),
+                              Text(
+                                'Pressure (hPa)',
+                                style: textTheme.subtitle2,
+                              ),
+                              Text(
+                                '${currentWeather.pressure.toStringAsFixed(1)}',
+                                style: textTheme.subtitle1,
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                'Humidity (%)',
+                                style: textTheme.subtitle2,
+                              ),
+                              Text(
+                                '${currentWeather.humidity.toStringAsFixed(1)}',
+                                style: textTheme.subtitle1,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),

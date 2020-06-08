@@ -18,6 +18,7 @@ class TemperatureText extends StatelessWidget {
     return DefaultTextStyle(
       style: style,
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Transform.translate(
