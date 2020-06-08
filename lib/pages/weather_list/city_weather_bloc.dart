@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:openweather_app/model/weather.dart';
-import 'package:openweather_app/services/openweather/client.dart';
+import 'package:openweather_app/services/weather_client.dart';
 import 'package:rxdart/rxdart.dart';
 
 class CityWeatherBloc {
@@ -18,10 +18,10 @@ class CityWeatherBloc {
           .asStream()
           // .delay(Duration(seconds: 4))
           .startWith(null))
-          .doOnError((error, stacktrace)=> print('oh, no! $error / $stacktrace'))
+      .doOnError((error, stacktrace) => print('oh, no! $error / $stacktrace'))
       .shareValue();
 
   final String cityName;
-  final OpenWeatherClient client;
+  final WeatherClient client;
   final Stream<bool> refreshRequest;
 }

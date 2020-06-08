@@ -1,13 +1,13 @@
 import 'package:intl/intl.dart';
 import 'package:openweather_app/model/weather.dart';
-import 'package:openweather_app/services/openweather/client.dart';
+import 'package:openweather_app/services/weather_client.dart';
 import 'package:rxdart/rxdart.dart';
 
 final DateFormat _dateFormat = DateFormat.Md();
 
 class ForecastBloc {
   final City city;
-  final OpenWeatherClient client;
+  final WeatherClient client;
   final DateTime tomorrow = DateTime.now().toUtc().add(Duration(days: 1));
 
   ForecastBloc(this.city, this.client) {

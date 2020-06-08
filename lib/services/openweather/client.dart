@@ -5,12 +5,9 @@ import 'package:openweather_app/model/weather.dart';
 import 'package:openweather_app/services/http_exception.dart';
 import 'package:openweather_app/services/openweather/weather.dart'
     as api_weather;
+import 'package:openweather_app/services/weather_client.dart';
 
-abstract class OpenWeatherClient {
-  Future<Weather> getCurrentWeather(String city);
-
-  Future<Map<DateTime, Weather>> get7DaysForecast(City city);
-
+abstract class OpenWeatherClient implements WeatherClient {
   factory OpenWeatherClient({http.Client httpClient}) =>
       _OpenWeatherClient(httpClient);
 }
@@ -25,16 +22,13 @@ class _OpenWeatherClient implements OpenWeatherClient {
     Uri requestUri = Uri.https(
       _authority,
       '$_apiPath/onecall',
-      
     ).replace(
-      query: {
-        'lat': city.lat.toString(),
-        'lon': city.long.toString(),
-        'exclude': 'current,minutely,hourly',
-        'units': 'metric'
-      }.entries.map((e) => '${e.key}=${e.value}')
-      .join('&')
-    );
+        query: {
+      'lat': city.lat.toString(),
+      'lon': city.long.toString(),
+      'exclude': 'current,minutely,hourly',
+      'units': 'metric'
+    }.entries.map((e) => '${e.key}=${e.value}').join('&'));
     var jsonResponse = await _readJson(client.get(requestUri));
     List<dynamic> forecast = jsonResponse['daily'];
     Iterable<MapEntry<DateTime, Weather>> forecastEntries =
@@ -52,7 +46,7 @@ class _OpenWeatherClient implements OpenWeatherClient {
   }
 
   @override
-  Future<Weather> getCurrentWeather(String city) async {
+  Future<Weather> getCurrentWeather(String city, {bool forceRefresh: false}) async {
     Uri requestUri = Uri.https(
         _authority, '$_apiPath/weather', {'q': city, 'units': 'metric'});
     var jsonResponse = await _readJson(client.get(requestUri));
