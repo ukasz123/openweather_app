@@ -12,8 +12,8 @@ class Weather extends model.Weather {
     double pressure = (mainData['pressure'] as num).toDouble();
     double humidity = (mainData['humidity'] as num).toDouble();
     Map<String, dynamic> coords = json['coord'];
-    double lat = coords['lat'];
-    double long = coords['lon'];
+    double lat = (coords['lat']as num).toDouble();
+    double long = (coords['lon']as num).toDouble();
     String conditionIcon = ((json['weather'] as List<dynamic>).first
         as Map<String, dynamic>)['icon'];
     model.WeatherCondition condition = _fromIconCode(conditionIcon);
@@ -23,7 +23,7 @@ class Weather extends model.Weather {
 
   factory Weather.fromForecastResponse(
       model.City city, Map<String, dynamic> json) {
-    double temperature = (json['temp'] as Map<String, dynamic>)['day'];
+    double temperature = ((json['temp'] as Map<String, dynamic>)['day']as num).toDouble();;
 
     double pressure = (json['pressure'] as num).toDouble();
     double humidity = (json['humidity'] as num).toDouble();
