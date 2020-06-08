@@ -37,6 +37,9 @@ dependencies:
 
   intl: ^0.16.1
 
+  objectdb: ^1.0.7
+  path_provider: ^0.4.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

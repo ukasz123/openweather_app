@@ -1,4 +1,3 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:openweather_app/model/weather.dart';
@@ -81,22 +80,3 @@ class _ForecastState extends State<Forecast> {
   }
 }
 
-Random _r = Random();
-
-List<String> forecast = [
-  "tomorrow",
-  "2.04",
-  "3.04",
-  "4.04",
-  "5.04",
-  "6.04",
-  "7.04",
-];
-
-const List<String> _weathers = const [
-  WeatherIcons.cloudSunny,
-  WeatherIcons.rain,
-  WeatherIcons.sunny,
-  WeatherIcons.snowHeavy,
-  WeatherIcons.rainLight,
-];
