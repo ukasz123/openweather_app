@@ -6,6 +6,7 @@ import 'package:http/http.dart';
 import 'package:objectdb/objectdb.dart';
 import 'package:openweather_app/api_keys.dart';
 import 'package:openweather_app/pages/weather_list/cities_list_bloc.dart';
+import 'package:openweather_app/pages/weather_list/force_refresh_bloc.dart';
 import 'package:openweather_app/services/openweather/client.dart';
 import 'package:openweather_app/services/openweather/http.dart';
 import 'package:openweather_app/services/repository/weather_repository.dart';
@@ -33,7 +34,6 @@ class AppDependenciesSetup extends StatelessWidget {
               var appDocsDirectory = await getApplicationDocumentsDirectory();
               var cacheFile =
                   File([appDocsDirectory.path, 'cache.db'].join('/'));
-
               var objectDB = ObjectDB(cacheFile.path);
               await objectDB.open();
               return objectDB;
@@ -50,10 +50,6 @@ class AppDependenciesSetup extends StatelessWidget {
           // return repository as a WeatherClient
           ProxyProvider<WeatherRepository, WeatherClient>(
             update: (_, repo, __) => repo,
-          ),
-          Provider<CitiesListBloc>(
-            create: (_) => CitiesListBloc(),
-            dispose: (_, bloc) => bloc.dispose(),
           ),
         ],
         child: Consumer<ObjectDB>(builder: (context, db, _) {

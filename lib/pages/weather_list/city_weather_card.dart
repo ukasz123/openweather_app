@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:openweather_app/model/weather.dart';
 import 'package:openweather_app/pages/weather_details/weather_details.dart';
 import 'package:openweather_app/pages/weather_list/city_weather_bloc.dart';
+import 'package:openweather_app/pages/weather_list/force_refresh_bloc.dart';
 import 'package:openweather_app/utils/temperature_color.dart';
 import 'package:openweather_app/widgets/temperature.dart';
 import 'package:openweather_app/widgets/temperature_theme.dart';
@@ -41,11 +42,10 @@ class _CityWeatherCardState extends State<CityWeatherCard> {
   }
 
   void _initBloc() {
-    // TODO attach refresh stream
     _bloc = CityWeatherBloc(
         cityName: widget.city,
         client: Provider.of(context),
-        refreshRequest: Stream.empty());
+        refreshRequest: Provider.of<ForceRefreshBloc>(context).refresh);
   }
 
   @override

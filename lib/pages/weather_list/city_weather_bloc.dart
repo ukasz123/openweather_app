@@ -12,13 +12,12 @@ class CityWeatherBloc {
 
   Stream<Weather> get currentWeather => refreshRequest
       .asBroadcastStream()
-      .startWith(true)
+      .startWith(false)
       .switchMap((value) => client
-          .getCurrentWeather(cityName)
+          .getCurrentWeather(cityName, forceRefresh: value)
           .asStream()
           // .delay(Duration(seconds: 4))
           .startWith(null))
-      .doOnError((error, stacktrace) => print('oh, no! $error / $stacktrace'))
       .shareValue();
 
   final String cityName;
