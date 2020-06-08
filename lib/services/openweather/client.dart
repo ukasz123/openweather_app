@@ -32,8 +32,7 @@ class _OpenWeatherClient implements OpenWeatherClient {
     var jsonResponse = await _readJson(client.get(requestUri));
     List<dynamic> forecast = jsonResponse['daily'];
     Iterable<MapEntry<DateTime, Weather>> forecastEntries =
-        forecast.cast<Map<String, dynamic>>().skip(1)
-            // skip current weather
+        forecast.cast<Map<String, dynamic>>()
             .map((daily) {
       int dateUnixUTC = daily['dt'];
       var dailyDate =

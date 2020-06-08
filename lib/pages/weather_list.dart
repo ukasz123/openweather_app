@@ -1,15 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:openweather_app/pages/weather_list/add_city_card.dart';
+import 'package:openweather_app/pages/weather_list/cities_list_bloc.dart';
 import 'package:openweather_app/pages/weather_list/city_weather_card.dart';
+import 'package:provider/provider.dart';
 
 class WeatherListPage extends StatelessWidget {
-  static List<String> cities = const [
-    'Gdańsk',
-    'Warszawa',
-    'Kraków',
-    'Wrocław',
-    'Łódź'
-  ];
-
   @override
   Widget build(BuildContext context) {
     var theme = Theme.of(context);
@@ -23,12 +18,24 @@ class WeatherListPage extends StatelessWidget {
       body: LayoutBuilder(
         builder: (context, constraints) {
           var crossAxisCount = (constraints.maxWidth / 180).floor();
-          return GridView(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: crossAxisCount),
-            children:
-                cities.map((city) => CityWeatherCard(city: city)).toList(),
-          );
+          return Consumer<CitiesListBloc>(
+              builder: (context, bloc, _) => StreamBuilder<List<String>>(
+                  stream: bloc.cities,
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return GridView(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: crossAxisCount),
+                        children: [...snapshot.data
+                            .map((city) => CityWeatherCard(city: city))
+                            .toList(),
+                            AddCityCard(onCityNameEntered: bloc.addCity,),
+                            ],
+                      );
+                    } else {
+                      return Container();
+                    }
+                  }));
         },
       ),
     );

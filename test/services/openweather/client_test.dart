@@ -29,9 +29,10 @@ void main() {
     var today = DateTime.now().toUtc();
     var tomorrow = DateTime.now().toUtc().add(Duration(days: 1));
     expect(response, isNotNull);
-    expect(response.keys.length, equals(7));
-    expect(response.values.length, equals(7));
-    expect(response.keys.first.weekday, equals(tomorrow.weekday));
+    expect(response.keys.length, equals(8));
+    expect(response.values.length, equals(8));
+    expect(response.keys.first.weekday, equals(today.weekday));
+    expect(response.keys.elementAt(1).weekday, equals(tomorrow.weekday));
     expect(response.keys.last.weekday, equals(today.weekday));
   });
 }

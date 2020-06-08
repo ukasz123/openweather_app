@@ -9,6 +9,7 @@ class ForecastBloc {
   final City city;
   final WeatherClient client;
   final DateTime tomorrow = DateTime.now().toUtc().add(Duration(days: 1));
+  final DateTime today = DateTime.now().toUtc();
 
   ForecastBloc(this.city, this.client) {
     forecast = Stream.fromFuture(client.get7DaysForecast(city))
@@ -16,7 +17,11 @@ class ForecastBloc {
               DateTime date = entry.key;
               Weather weather = entry.value;
 
-              if (tomorrow.day == date.day &&
+              if (today.day == date.day &&
+                  today.month == date.month &&
+                  today.year == date.year) {
+                return ForecastData("today", weather);
+              } else if (tomorrow.day == date.day &&
                   tomorrow.month == date.month &&
                   tomorrow.year == date.year) {
                 return ForecastData("tomorrow", weather);
